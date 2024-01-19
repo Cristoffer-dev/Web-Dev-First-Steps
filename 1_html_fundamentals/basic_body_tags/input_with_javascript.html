@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>Basic Body Tags - Imput With JavaScript </title>
+</head>
+<body>
+    <script>
+
+        // *** SNEAK PEEK OF JAVASCRIPT ***
+
+        function displaySummary() {
+
+            var name = document.getElementById("txtName").value;
+            if (name == "")
+                name = "not informed";
+
+            var age = document.getElementById("txtAge").value;
+            if (age == "")
+                age = "not informed";
+
+            var password = document.getElementById("txtPassword").value;
+            if (password == "")
+                password = "not informed";
+
+            var topic;
+            if (document.getElementById("radioHtml").checked)
+                topic = document.getElementById("radioHtml").value;
+            else if (document.getElementById("radioCss").checked)
+                topic = document.getElementById("radioCss").value;
+            else if (document.getElementById("radioJavascript").checked)
+                topic = document.getElementById("radioJavascript").value;
+            else
+                topic = "not informed";
+
+            var browser;
+            if (document.getElementById("radioFirefox").checked)
+                browser = document.getElementById("radioFirefox").value;
+            else if (document.getElementById("radioChrome").checked)
+                browser = document.getElementById("radioChrome").value;
+            else if (document.getElementById("radioEdge").checked)
+                browser = document.getElementById("radioEdge").value;
+            else
+                browser = "not informed";
+
+            var subscribe;
+            if (document.getElementById("checkboxNewsletter").checked)
+                subscribe = "yes";
+            else
+                subscribe = "no";
+
+            var summary = "Your name is: " + name + "\n" +
+                "Your age is: " + age + "\n" +
+                "Your password is: " + password + "\n" +
+                "Your favorite topic is: " + topic + "\n" +
+                "Your favorite browser is: " + browser + "\n" +
+                "Subscribe to the newsletter: " + subscribe;
+
+            alert(summary);
+        }
+    </script>
+        
+</body>
+</html>
