@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS Selectors</title>
+    <style>
+        body {
+            font-family: Tahoma;
+        }
+
+        p {
+            font-size: 20pt;
+        }
+
+        .myClass1 {
+            color: red;
+            font-weight: bold;
+        }
+
+        .myClass2 {
+            font-style: italic;
+        }
+
+        .myClass1, .myClass2 {
+            text-decoration: underline;
+        }
+
+        #p1 {
+            background-color: yellow;
+        }
+
+        #p2 {
+            background-color: pink;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            font-size: 40pt;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Selectors</h1>
+
+    <p id="p1">Text A</p>
+
+    <p class="myClass1">Text B</p>
+
+    <p>Text C</p>
+
+    <p class="myClass1 myClass2">Text D</p>
+
+    <p>Text E</p>
+
+    <p id="p2" class="myClass1">Text F</p>
+
+    <table>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td class="myClass2">3</td>
+            <td>4</td>
+        </tr>
+        <tr class="myClass2">
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+</body>
+</html>

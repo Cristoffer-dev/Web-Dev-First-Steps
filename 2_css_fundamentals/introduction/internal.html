@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Internal CSS</title>
+
+    <!--
+    Internal CSS is best for styling a single HTML page. Place styles within
+    a <style> tag in the <head> section of the document. Multiple elements
+    can share a same set of CSS rules. It is not ideal for reusability
+    across multiple pages.
+    -->
+
+    <style>
+        p {
+            font-size: 15pt;
+            font-family: Tahoma;
+            color: blue;
+        }
+
+        h3, h4, span {
+            color: red;
+            font-style: italic;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>Internal CSS</h1>
+
+    <p>Hello World (Internal CSS)</p>
+
+    <p>Hello World (Internal CSS)</p>
+
+    <h2>Hello World (No CSS)</h2>
+    <h3>Hello World (Internal CSS)</h3>
+    <h4>Hello World (Internal CSS)</h4>
+    <span>Hello World (Internal CSS)</span>
+</body>
+</html>

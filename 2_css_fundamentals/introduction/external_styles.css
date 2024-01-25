@@ -1,0 +1,11 @@
+/* External CSS */
+
+p {
+    font-size: 15pt;
+    font-family: Tahoma;
+    color: blue;
+}
+
+h3, h4 {
+    color: #00ff00;
+}

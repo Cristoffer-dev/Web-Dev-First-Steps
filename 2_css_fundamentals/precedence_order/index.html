@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS Fundamentals - Precedence Order</title>
+    <link rel="stylesheet" href="external_styles.css" />
+    <style>
+        div {
+            color:red; /* overwriting "color:lightsilver" with "color:red" */
+        }
+
+        p {
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Precedence Order</h1>
+
+    <h2>Text 1 (no rule applied)</h2>
+
+    <p>Text 2 (internal p rule takes precedence: blue)</p>
+
+    <div>
+        <p>Text 3 (internal p rule takes precedence: blue + external lightyellow background-color [inherited from div])</p>
+        <h3>Text 4 (inherited internal div rule takes precedence: red)</h3>
+        <p style="color:purple">Text 5 (inline p rule takes precedence: purple)</p>
+        <p style="color:inherit">Text 6 (inline p rule takes precedence: inherit red from internal div rule)</p>
+        <ul>
+            <li>Text 7 (inherited internal div rule takes precedence: red)</li>
+            <li>
+                <span style="color:inherit">Text 8</span>
+            </li>
+        </ul>
+        <p>
+            <span>Text 9 (external span rule takes precedence: green)</span>
+        </p>
+        <span style="color:orange;">Text 10 (inline span rule takes precedence: orange)</span>
+        <p>
+            <span style="color:inherit">Text 11 (inline span rule takes precedence: inherit blue from internal p rule)</span>
+        </p>
+    </div>
+
+    <span>Text 12 (external span rule takes precedence: green)</span>
+</body>
+</html>

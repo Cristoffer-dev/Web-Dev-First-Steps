@@ -1,18 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="data:">
-    <title>Basic Body Tags - Imput With JavaScript </title>
+    <meta charset="utf-8" />
+    <title>Basic Body Tags - Input</title>
 </head>
 <body>
-    <input id="txtName" type="text" placeholder="Enter your name">
-    <br />
-    <br />
-    <input id="txtAge" type="number" placeholder="Enter your age">
-    <br />
-    <br />
-    <input id="txtPassword" type="password" placeholder="Enter your password">
+    <input id="textName" type="text" placeholder="Enter your name">
     <br />
     <br />
     <span>What's your favorite topic?</span>
@@ -43,25 +37,17 @@
     <label for="checkboxNewsletter">Subscribe to our newsletter</label>
     <br />
     <br />
-    <input type="button" value="Button example" onclick="displaySummary()">
-        
+    <input type="button" value="Display summary" onclick="displaySummary()">
+
     <script>
 
         // *** SNEAK PEEK OF JAVASCRIPT ***
 
         function displaySummary() {
 
-            var name = document.getElementById("txtName").value;
+            var name = document.getElementById("textName").value;
             if (name == "")
                 name = "not informed";
-
-            var age = document.getElementById("txtAge").value;
-            if (age == "")
-                age = "not informed";
-
-            var password = document.getElementById("txtPassword").value;
-            if (password == "")
-                password = "not informed";
 
             var topic;
             if (document.getElementById("radioHtml").checked)
@@ -90,15 +76,12 @@
                 subscribe = "no";
 
             var summary = "Your name is: " + name + "\n" +
-                "Your age is: " + age + "\n" +
-                "Your password is: " + password + "\n" +
-                "Your favorite topic is: " + topic + "\n" +
-                "Your favorite browser is: " + browser + "\n" +
-                "Subscribe to the newsletter: " + subscribe;
+                          "Your favorite topic is: " + topic + "\n" +
+                          "Your favorite browser is: " + browser + "\n" +
+                          "Subscribe to the newsletter: " + subscribe;
 
             alert(summary);
         }
     </script>
-        
 </body>
 </html>
