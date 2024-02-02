@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Global Scope versus Local Scope</title>
+</head>
+<body>
+    <h1>Global Scope versus Local Scope</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        //*** Comment/uncomment to switch the const, let, and var declarations to test their behaviors
+
+        //GLOBAL SCOPE:
+        //const globalScopeVar = "I'm global";
+        //let globalScopeVar = "I'm global";
+        var globalScopeVar = "I'm global";
+
+        function demoScope() {
+            //LOCAL SCOPE (also known as FUNCTION SCOPE in JavaScript terms):
+            //const localScopeVar = "I'm local";
+            //let localScopeVar = "I'm local";
+            var localScopeVar = "I'm local";
+
+            console.log(globalScopeVar); //accessible
+            console.log(localScopeVar); //accessible
+        }
+
+        demoScope();
+
+        console.log(globalScopeVar); //accessible
+        console.log(localScopeVar); //inaccessible (error: localScopeVar is not defined)
+
+        /*
+        Key takeaway:
+        cons, let, and var declarations behave the same way when
+        testing Global Scope and Local Scope
+        */
+    </script>
+</body>
+</html>
+
+        

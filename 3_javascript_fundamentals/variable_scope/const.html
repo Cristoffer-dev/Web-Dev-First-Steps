@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>const particularities</title>
+</head>
+<body>
+    <h1>const particularities</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        //*** Comment/uncomment to test each example:
+
+        //example1();
+        example2();
+        //example3();
+
+        function example1() {
+            const firstName = "Alice";
+            console.log(firstName); //display "Alice"
+        }
+
+        function example2() {
+            const firstName = "Alice";
+            firstName = "John"; //CANNOT BE REASSIGNED (will cause an error)
+            console.log(firstName);
+        }
+
+        function example3() {
+            if (true) {
+                const firstName = "Alice"; //BLOCK SCOPE
+                console.log(firstName); //display "Alice"
+            }
+            console.log(firstName); //will cause an error
+        }
+    </script>
+</body>
+</html>

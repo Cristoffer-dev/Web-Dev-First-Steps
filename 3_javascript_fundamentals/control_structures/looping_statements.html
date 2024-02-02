@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Looping Statements</title>
+</head>
+<body>
+    <h1>Looping Statements</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        console.log("*** Repetitive Structure ... for loop");
+
+        console.log("Entering for loop from 1 to 10...");
+        for (var counter = 1; counter <= 10; counter++)
+        {
+            console.log("counter: " + counter);
+        }
+        console.log("for loop (1 to 10) has finished");
+
+
+        console.log("Entering for loop from 10 to 1...");
+        for (var counter = 10; counter >= 1; counter--)
+        {
+            console.log("counter: " + counter);
+        }
+        console.log("for loop (10 to 1) has finished");
+
+
+        console.log("Entering for loop from 1 to 10. Step every 2 numbers...");
+        for (var counter = 1; counter <= 10; counter += 2)
+        {
+            console.log("counter: " + counter);
+        }
+        console.log("for loop (1 to 10 step 2) has finished");
+
+
+        console.log("Entering for loop from 1 to 10. Break at 5...");
+        for (var counter = 1; counter <= 10; counter++)
+        {
+            console.log("counter: " + counter);
+            if (counter == 5)
+                break;
+        }
+        console.log("for loop (1 to 10 break at 5) has finished");
+
+        console.log("Entering for loop from 1 to 10. Skip execution at 5...");
+        for (var counter = 1; counter <= 10; counter++)
+        {
+            if (counter == 5)
+                continue;
+            console.log("counter: " + counter);
+        }
+        console.log("for loop (1 to 10 skip 5) has finished\n");
+
+
+        //*** Repetitive Structure ... while loop
+        console.log("*** Repetitive Structure ... while loop");
+
+        while (prompt("Would you like to throw a dice? (y/n): ") == "y")
+        {
+            var diceValue = Math.floor(Math.random() * 6) + 1;
+            console.log("You've got: " + diceValue);
+        }
+
+
+        //*** Repetitive Structure ... do loop
+        console.log("*** Repetitive Structure ... do loop");
+
+        var menuOption;
+        var tryAgain;
+        do {
+            console.log("MENU OPTIONS:");
+            console.log("1 - SEARCH");
+            console.log("2 - ADD");
+            console.log("3 - UPDATE");
+            console.log("4 - DELETE");
+            menuOption = prompt("Please, select an option between 1 and 4: ");
+            tryAgain = !(menuOption == "1" || menuOption == "2" || menuOption == "3" || menuOption == "4");
+            if (tryAgain)
+            {
+                console.log("*** Invalid option! ***");
+            }
+        } while (tryAgain);
+        console.log("you have chosen option: " + menuOption);
+
+        console.log("*** FINISH ***");
+
+    </script>
+</body>
+</html>
+
+        

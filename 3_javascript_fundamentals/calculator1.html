@@ -11,41 +11,46 @@
     <h1>Calculator 1</h1>
     <h2>Use the Developer Console to see the output messages.</h2>
     <script>
-        function calculator() {
-            console.log("CALCULATOR 1")
-            console.log("***************")
-            console.log("1 - Addition");
-            console.log("2 - Subtraction");
-            console.log("3 - Multiplication");
-            console.log("4 - Division");
+        console.log("CALCULATOR 1")
+        console.log("***************")
+        console.log("1 - Addition");
+        console.log("2 - Subtraction");
+        console.log("3 - Multiplication");
+        console.log("4 - Division");
 
-            var option = prompt("Enter option (1-4):");
+        var menuOption = prompt("Enter option (1-4):");
 
-            if (option >= 1 && option <= 4) {
-                var num1 = prompt("Enter first number:");
-                var num2 = prompt("Enter second number:");
+        if (menuOption >= 1 && menuOption <= 4) {
+            var num1 = parseFloat(prompt("Enter the first number: "));
+            var num2 = parseFloat(prompt("Enter the second number: "));
+            var result;
 
-                switch (option) {
-                    case 1:
-                        console.log("${num1} + ${num2} = ${num1 + num2}");
-                        break;
-                    case 2:
-                        console.log("${num1} - ${num2} = ${num1 - num2}");
-                        break;
-                    case 3:
-                        console.log("${num1} * ${num2} = ${num1 * num2}");
-                        break;
-                    case 4:
-                        console.log("${num1} / ${num2} = ${num1 / num2}");
-                        break;
-                }
+            switch (menuOption) {
+                case "1":
+                    result = num1 + num2;
+                    console.log("Result: " + result);
+                    break;
+                case "2":
+                    result = num1 - num2;
+                    console.log("Result: " + result);
+                    break;
+                case "3":
+                    result = num1 * num2;
+                    console.log("Result: " + result);
+                    break;
+                case "4":
+                    if (num2 !== 0) {
+                        result = num1 / num2;
+                        console.log("Result: " + result);
+                    } else {
+                        console.log("*** Division by zero is not allowed! ***");
+                    }
+                    break;
             }
-            else {
-                console.log("Invalid option, Please enter a valid option.");
-            }
-
         }
-        calculator();
+        else {
+            console.log("Invalid option, Please refresh the page and enter a valid option.");
+        }
     </script>
 </body>
 

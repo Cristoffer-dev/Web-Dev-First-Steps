@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>let particularities</title>
+</head>
+<body>
+    <h1>let particularities</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        //*** Comment/uncomment to test each example:
+
+        //example1();
+        //example2();
+        example3();
+
+        function example1() {
+            let firstName = "Alice";
+            console.log(firstName); //display "Alice"
+        }
+
+        function example2() {
+            let firstName = "Alice";
+            firstName = "John"; //CAN BE REASSIGNED
+            console.log(firstName); //display "John"
+        }
+
+        function example3() {
+            if (true) {
+                let firstName = "Alice"; //BLOCK SCOPE§
+                console.log(firstName); //display "Alice"
+            }
+            console.log(firstName); //will cause an error
+        }
+    </script>
+</body>
+</html>

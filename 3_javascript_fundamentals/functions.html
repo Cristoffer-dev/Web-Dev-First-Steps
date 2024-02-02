@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Functions</title>
+</head>
+<body>
+    <h1>Functions</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        var grade = prompt("Enter the student grade: ");
+        var alphaGrade = getAlphaGrade(grade);
+        console.log(grade + " corresponds to the alphabetical grade: " + alphaGrade);
+
+        function getAlphaGrade(grade)
+        {
+            var gradeInt = parseInt(grade);
+            var result = null;
+            if (gradeInt <= 100 && gradeInt >= 90)
+                result = "A";
+            else if (gradeInt < 90 && gradeInt >= 80)
+                result = "B";
+            else if (gradeInt < 80 && gradeInt >= 70)
+                result = "C";
+            else if (gradeInt < 70 && gradeInt >= 60)
+                result = "D";
+            else if (gradeInt < 60 && gradeInt >= 0)
+                result = "E";
+
+            return result;
+        }
+
+
+    </script>
+</body>
+</html>
