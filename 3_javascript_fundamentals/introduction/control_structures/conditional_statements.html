@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Conditional Statements</title>
+</head>
+
+<body>
+    <h1>Conditional Statements</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        console.log("MANAGE WAREHOUSE PRODUCTS");
+        console.log("-------------------------");
+        console.log("OPTIONS:");
+        console.log("1 - SEARCH");
+        console.log("2 - ADD");
+        console.log("3 - UPDATE");
+        console.log("4 - DELETE");
+
+        var menuOption = prompt("Please, enter an option between 1 and 4: ");
+
+        console.log("You have chosen option: " + menuOption);
+
+        //*** Conditional Statement: switch
+        switch (menuOption) {
+            case "1":
+                console.log("WAREHOUSE SEARCH... (switch case evaulation)");
+                break;
+            case "2":
+                console.log("WAREHOUSE ADD... (switch case evaulation)");
+                break;
+            case "3":
+                console.log("WAREHOUSE UPDATE... (switch case evaulation)");
+                break;
+            case "4":
+                console.log("WAREHOUSE DELETE... (switch case evaulation)");
+                break;
+            default:
+                console.log("INVALID OPTION (switch default evaulation)");
+                break;
+
+                //*** Conditional Statements: if, else if, else, nested ifs
+                // Let's say the following options demand admin rights and ask for an approval code:
+                // 3 - UPDATE
+                // 4 - DELETE
+
+                var secretApprovalCode = "ABC123";
+
+                if (menuOption == "1") {
+                    console.log("WAREHOUSE SEARCH... (if evaulation)");
+                }
+                else if (menuOption == "2") {
+                    console.log("WAREHOUSE ADD... (else if evaulation)");
+                }
+                else if (menuOption == "3" || menuOption == "4") {
+                    var code = prompt("Please, enter the approval code: ");
+                    var gotAccess = code == secretApprovalCode; //gotAccess will be true or false
+
+                    if (gotAccess && menuOption == "3")
+                        console.log("WAREHOUSE UPDATE... (nested if evaulation)");
+                    else if (gotAccess && menuOption == 4)
+                        console.log("WAREHOUSE DELETE... (nested else if evaulation)");
+                    else
+                        console.log("YOU DON'T HAVE ACCESS TO THIS OPERATION! (nested else evaulation)");
+                }
+                else {
+                    console.log("INVALID OPTION (else evaulation)");
+                }
+
+                //*** Ternary Conditional Operator ... ?
+                var operationType = menuOption == "3" || menuOption == "4" ? "SENSITIVE" : "SIMPLE";
+                console.log("Operation Type: " + operationType);
+
+                //*** Finish
+                console.log("*** FINISH ***");
+
+        }
+    </script>
+</body>
+
+</html>

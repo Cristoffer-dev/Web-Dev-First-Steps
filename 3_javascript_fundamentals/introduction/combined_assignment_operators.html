@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Combined Assignment Operators</title>
+</head>
+<body>
+    <h1>Combined Assignment Operators</h1>
+    <h2>Use the Developer Console to inspect variableA and variableB.</h2>
+
+    <script>
+        var variableA = 10;
+        var variableB;
+
+        variableA = variableA + 1;
+        variableA++;
+        ++variableA;
+        variableA += 1;
+
+        variableA = variableA - 1;
+        variableA--;
+        --variableA;
+        variableA -= 1;
+
+        variableA = 10;
+        variableB = variableA++; //return 10 then increment variableA
+
+        variableA = 10;
+        variableB = ++variableA;  //increment variableA then return 11
+
+        variableA = 10;
+        variableB = variableA += 1;  //same as ++variableA or variableA++ ?
+
+        variableA = 10;
+        variableB = variableA--; //return 10 then decrement variableA
+
+        variableA = 10;
+        variableB = --variableA;  //decrement variableA then return 9
+
+        variableA = 10;
+        variableB = variableA -= 1;  //same as --variableA or variableA-- ?
+
+        variableA = 10;
+        variableA += 10;
+        variableA -= 10;
+
+        variableA = variableA * 10;
+        variableA *= 10;
+
+        variableA = variableA / 10;
+        variableA /= 10;
+    </script>
+</body>
+</html>
+
+        

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Variables</title>
+</head>
+
+<body>
+    <h1>Variables</h1>
+    <h2>Use the Developer Console to see the output messages.</h2>
+
+    <script>
+        //*** Variables
+        var variableA = 10;
+        var variableB = 2;
+        var arithmeticResult;
+        var booleanResult;
+
+        //*** Arithmetic Operators
+        console.log("*** Arithmetic Operators");
+
+        arithmeticResult = variableA + variableB;
+        console.log(variableA + " + " + variableB + " = " + arithmeticResult);
+
+        arithmeticResult = variableA - variableB;
+        console.log(variableA + " - " + variableB + " = " + arithmeticResult);
+
+        arithmeticResult = variableA * variableB;
+        console.log(variableA + " * " + variableB + " = " + arithmeticResult);
+
+        arithmeticResult = variableA / variableB;
+        console.log(variableA + " / " + variableB + " = " + arithmeticResult);
+
+        arithmeticResult = variableA % variableB;
+        console.log(variableA + " % " + variableB + " = " + arithmeticResult);
+
+        //*** Comparison Operators
+        console.log("\n*** Comparison Operators");
+
+        booleanResult = variableA == variableB;
+        console.log(variableA + " is equal to " + variableB + ": " + booleanResult);
+
+        booleanResult = variableA > variableB;
+        console.log(variableA + " is greater than " + variableB + ": " + booleanResult);
+
+        booleanResult = variableA >= variableB;
+        console.log(variableA + " is greater than or equal to " + variableB + ": " + booleanResult);
+
+        booleanResult = variableA < variableB;
+        console.log(variableA + " is less than " + variableB + ": " + booleanResult);
+
+        booleanResult = variableA <= variableB;
+        console.log(variableA + " is less than or equal to " + variableB + ": " + booleanResult);
+
+        booleanResult = variableA % 2 == 0;
+        console.log(variableA + " is an even number: " + booleanResult);
+
+        //*** Conditional Logical Operators && (AND), || (OR), ! (NOT)
+        console.log("\n*** Conditional Logical Operators && (AND), || (OR), ! (NOT)");
+
+        booleanResult = variableA % 2 == 0 && variableB % 2 == 0;
+        console.log(variableA + " and " + variableB + " are both even numbers: " + booleanResult);
+
+        console.log(variableA + " and " + variableB + " are NOT even numbers: " + !booleanResult);
+
+        booleanResult = variableA % 2 == 0 || variableB % 2 == 0;
+        console.log("Given " + variableA + " and " + variableB + ", at least one of them is an even number: " + booleanResult);
+
+        booleanResult = true && true;
+        console.log(booleanResult);
+
+        booleanResult = false && true;
+        console.log(booleanResult);
+
+        booleanResult = true || true;
+        console.log(booleanResult);
+
+        booleanResult = false || true;
+        console.log(booleanResult);
+
+        booleanResult = 10 == 10 && 5 == 5;
+        console.log(booleanResult);
+
+        booleanResult = 10 == 9 && 5 == 5;
+        console.log(booleanResult);
+
+        variableA = 0;
+        booleanResult = 10 == 9 && 10 / variableA == 2;
+        console.log(booleanResult);
+
+        booleanResult = 10 == 10 || 10 / variableA == 2;
+        console.log(booleanResult);
+
+
+    </script>
+</body>
+
+</html>
