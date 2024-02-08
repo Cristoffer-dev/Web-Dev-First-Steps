@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>Custom Objects</title>
+</head>
+<body>
+    <h1>Custom Objects</h1>
+    <h2>Use the Developer Console to see the output messages</h2>
+
+    <script>
+        example1();
+        //example2();
+        //example3();
+        //example4();
+
+        function example1() {
+            //Creating an object using the ‘new’ keyword + Object function
+            let task = new Object();
+            task.taskNumber = 1;
+            task.taskName = "Study html basic tags";
+            task.taskStatus = "Pending";
+            task.anotherProperty = "blah blah blah";
+
+            console.log(task.taskNumber);
+            console.log(task.taskName);
+            console.log(task.taskStatus);
+            console.log(task);
+        }
+
+        function example2() {
+            //Creating an object using the ‘new’ keyword + constructor function
+            let task = new TaskExample2(1, "Study html basic tags", "Pending", "blah blah blah");
+
+            console.log(task.taskNumber);
+            console.log(task.taskName);
+            console.log(task.taskStatus);
+            console.log(task);
+        }
+
+        function TaskExample2(taskNumber, taskName, taskStatus, anotherProperty) {
+            this.taskNumber = 1;
+            this.taskName = "Study html basic tags";
+            this.taskStatus = "Pending";
+            this.anotherProperty = "blah blah blah";
+        }
+
+        function example3() {
+            //Creating an object using the ‘new’ keyword + class
+            let task = new TaskExample3(1, "Study html basic tags", "Pending", "blah blah blah");
+
+            //display individually each task property:
+            console.log(task.taskNumber);
+            console.log(task.taskName);
+            console.log(task.taskStatus);
+            console.log(task);
+
+            //or just call:
+            //task.displayInfo();
+        }
+
+        class TaskExample3 {
+            constructor (taskNumber, taskName, taskStatus, anotherProperty) {
+                this.taskNumber = taskNumber;
+                this.taskName = taskName;
+                this.taskStatus = taskStatus;
+                this.anotherProperty = anotherProperty;
+            }
+
+            sayHello() {
+                console.log("Hello!");
+            }
+
+            displayInfo() {
+                console.log(this.taskNumber);
+                console.log(this.taskName);
+                console.log(this.taskStatus);
+                console.log(this);
+            }
+        }
+
+        function example4() {
+            //Creating an object using the JSON literal syntax
+            let task = {
+                taskNumber: 1,
+                taskName: "Study html basic tags",
+                taskStatus: "Pending",
+                anotherProperty: "blah blah blah"
+            };
+
+            console.log(task.taskNumber);
+            console.log(task.taskName);
+            console.log(task.taskStatus);
+            console.log(task);
+        }
+    </script>
+</body>
+</html>
+
+        
