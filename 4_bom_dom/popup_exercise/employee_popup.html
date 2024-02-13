@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>New Employee</title>
+    <style>
+        .right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Employee</h1>
+
+    <table>
+        <tr>
+            <td class="right">
+                Employee Number:
+            </td>
+            <td>
+                <input type="text" id="txtEmployeeNumber" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                Employee Name:
+            </td>
+            <td>
+                <input type="text" id="txtEmployeeName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                Employee Position:
+            </td>
+            <td>
+                <select id="selEmployeePosition">
+                    <option value="0">Developer</option>
+                    <option value="1">Team Leader</option>
+                    <option value="2">Manager</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <!-- When clicked, make this button call the returnEmployeeObject function: -->
+    <input type="button" value="Create new Employee" onclick="returnEmployeeObject()" />
+
+    <script>
+        function returnEmployeeObject() {
+            // Implement this function to return the employee data to the opener page.
+            // In your return object, for the the employee position, return the selected option text.
+            var employee = {
+                number: document.getElementById('txtEmployeeNumber').value,
+                name: document.getElementById('txtEmployeeName').value,
+                position: document.getElementById('selEmployeePosition').options[document.getElementById('selEmployeePosition').selectedIndex].text
+            };
+            window.opener.receiveEmployeeData(employee);
+            window.close();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:" />
+    <title>New Student</title>
+</head>
+<body>
+    <h1>New Student</h1>
+
+    <input type="button" value="Create new Student" onclick="returnStudentObject()" />
+
+    <script>
+        function returnStudentObject() {
+            let student = new Object();
+            student.firstName = "Peter";
+            student.lastName = "Parker";
+            student.email = "peter.parker@marvel.com";
+            window.opener.receiveStudentData(student);
+            window.close();
+        }
+    </script>
+</body>
+</html>
+        

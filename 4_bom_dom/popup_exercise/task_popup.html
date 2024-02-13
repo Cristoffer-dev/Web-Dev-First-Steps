@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>New Task</title>
+    <style>
+        .right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Task</h1>
+
+    <table>
+        <tr>
+            <td class="right">
+                Task Number:
+            </td>
+            <td>
+                <input type="text" id="txtTaskNumber" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                Task Name:
+            </td>
+            <td>
+                <input type="text" id="txtTaskName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                Task Status:
+            </td>
+            <td>
+                <select id="selTaskStatus">
+                    <option value="0">Pending</option>
+                    <option value="1">In Progress</option>
+                    <option value="2">Done</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <!-- When clicked, make this button call the returnTaskObject function: -->
+    <input type="button" value="Create new Task" onclick="returnTaskObject()" />
+
+    <script>
+        function returnTaskObject() {
+            // Implement this function to return the task data to the opener page.
+            // In your return object, for the the task status, return the selected option value.
+            var task = {
+                number: document.getElementById('txtTaskNumber').value,
+                name: document.getElementById('txtTaskName').value,
+                status: document.getElementById('selTaskStatus').value
+            };
+            window.opener.receiveTaskData(task);
+            window.close();
+        }
+    </script>
+</body>
+
+</html>

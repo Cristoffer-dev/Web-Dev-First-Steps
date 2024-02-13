@@ -99,6 +99,112 @@
 
         <a href="history_pages/page_a.html">Open history example</a>
     </details>
+
+    <!-- window object -->
+    <details>
+        <summary>
+            window object
+        </summary>
+
+        <input type="button" value="Inspect window on console" onclick="console.log(window)" />
+
+        <br />
+
+        <input type="button" value="Window.open example 1" onclick="windowOpenExample1()" />
+        <input type="button" value="Window.open example 2" onclick="windowOpenExample2()" />
+        <input type="button" value="Window.open example 3" onclick="windowOpenExample3()" />
+
+        <hr />
+
+        <input type="button" value="Receive student data from pop-up" onclick="openStudentPopup()" />
+        <input type="button" value="Receive message data from pop-up" onclick="openMessagePopup()" />
+
+        <script>
+            function windowOpenExample1() {
+                //Open the page in a new tab:
+                window.open("popup_pages/hello_popup.html");
+            }
+
+            function windowOpenExample2() {
+                //Open the page in a pop-up window:
+                window.open("popup_pages/hello_popup.html", "OptionalWindowName", "width=600,height=400");
+            }
+
+            function windowOpenExample3() {
+                //Open the page in a pop-up window in the middle of the screen:
+                let width = 600;
+                let height = 400;
+                let left = (window.innerWidth - width) / 2;
+                let top = (window.innerHeight - height) / 2;
+                //or:
+                //let left = (screen.width - width) / 2;
+                //let top = (screen.height - height) / 2;
+                let windowFeatures = "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top;
+                window.open("popup_pages/hello_popup.html", "OptionalWindowName", windowFeatures);
+            }
+
+            function openStudentPopup() {
+                window.open("popup_pages/student_popup.html", "", "width=600,height=400");
+            }
+
+            function openMessagePopup() {
+                window.open("popup_pages/message_popup.html", "", "width=600,height=400");
+            }
+
+            function receiveStudentData(student) {
+                console.log(student);
+            }
+
+            function receiveMessageData(message) {
+                console.log(message);
+            }
+        </script>
+    </details>
+
+    <!-- timers -->
+    <details>
+        <summary>
+            timers
+        </summary>
+
+
+        <input type="button" value="Test setInterval (Timer 1)" onclick="testTimer1()" />
+        <input type="text" id="txtTimer" readonly="readonly" />
+        <input type="button" value="Abort setInterval (Timer 1)" onclick="abortTimer1()" />
+
+        <br />
+
+        <input type="button" value="Test setTimeout (Timer 2)" onclick="testTimer2()" />
+        <input type="button" value="Abort setTimeout (Timer 2)" onclick="abortTimer2()" />
+
+        <script>
+
+            let timer1;
+            let counter = 0;
+            function testTimer1() {
+                timer1 = setInterval(function () {
+                    counter++;
+                    document.getElementById("txtTimer").value = counter;
+                }, 1000); //1000 milliseconds = 1 second
+            }
+
+            function abortTimer1() {
+                clearInterval(timer1);
+            }
+
+            let timer2;
+            function testTimer2() {
+                timer2 = setTimeout(function () {
+                    alert("HELLO TIMER 2!");
+                }, 2000); //2 seconds
+            }
+
+            function abortTimer2() {
+                clearTimeout(timer2);
+            }
+        </script>
+    </details>
+
 </body>
 
 </html>
