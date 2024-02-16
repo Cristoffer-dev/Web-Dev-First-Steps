@@ -1,0 +1,30 @@
+body {
+    font-family: Tahoma;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid silver;
+    text-align: center;
+    padding: 10px;
+}
+
+.attention {
+    color: red;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+img {
+    cursor: pointer;
+    padding: 5px;
+}
+
+        

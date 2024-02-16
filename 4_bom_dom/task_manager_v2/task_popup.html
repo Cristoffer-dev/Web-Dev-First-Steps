@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>New Task</title>
+    <style>
+        body {
+            font-family: Tahoma;
+        }
+
+        .right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Task</h1>
+    <table>
+        <tr>
+            <td class="right">
+                Task Name:
+            </td>
+            <td>
+                <input type="text" id="txtTaskName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                task Status:
+            </td>
+            <td>
+                <select id="selTaskStatus">
+                    <!-- <option value="">(Select Status)</option> -->
+                    <option value="0">Pending</option>
+                    <option value="1">In Proogress</option>
+                    <option value="2">Done</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <input type="button" value="Create New task" onclick="btnCreateTask_onClick()"/>
+
+    <script>
+        function btnCreateTask_onClick() {
+            let task = new Object();
+            task.taskName = document.getElementById("txtTaskName").value;
+            task.taskStatus = document.getElementById("selTaskStatus").value;
+            
+            if (task.taskName == ""){
+                alet("Please enter the name of the task");
+                return;
+            }
+            window.opener.receiveTaskData(task);  // Send data to parent page
+            window.close();   // Close this popup
+        }
+
+    </script>
+</body>
+
+</html>

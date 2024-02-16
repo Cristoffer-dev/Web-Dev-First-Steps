@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>Task Manager Version 2</title>
+    <link rel="stylesheet" href="/shared_assets/css/task_manager.css">
+</head>
+
+<body>
+    <h1>Task Manager Version 2</h1>
+
+    <p>Create, update, and delete tasks. This version does not save tasks</p>
+    <p>
+        <a href="/index.html">Home</a>
+    </p>
+    <input type="button" value="Add Task" onclick="btnAdd_onClick()">
+
+    <br><br/>
+
+    <table id="tblMyTable" style="margin-top:20px; display: none;">
+        <thead>
+            <tr>
+                <th>Task Number</th>
+                <th>Task Name</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblMyTableBody">
+            <tr></tr>
+            <tr></tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <p id="pPending" class=""attention></p>
+    <p id="pInprogress"></p>
+    <p id="pCompleted"></p>
+
+    <script>
+        //support functions
+        function receiveTaskData(task) {
+            let tblMyTableBody = document.getElementById("tblMyTableBody");
+            //console.log(task)
+            if (tblMyTableBody.children.length == 0)
+                task.taskNumber = 1;
+            else
+                task.taskNumber = parseInt(tblMyTableBody.lastChild.cells[0].innerText) + 1;
+            let row = document.createElement("tr");
+            let colTaskNumber = document.createElement("td");
+            colTaskNumber.innerText = task.taskNumber;
+        }
+
+        function createSelectOption(text, value) {
+
+        }
+
+        function displayTotaltask() {
+
+        }
+
+        function closeEditRow(row, restoreOriginalValues) {
+
+        }
+
+        function getTaskFromRow(row) {
+
+        }
+
+    </script>
+    <script>
+        //Event Handler
+        function btnAdd_onClick() {
+            window.open("task_popup.html", "_blank", "left=400, width=400, height=250");
+        }
+
+        function btnEdit_onClick(e) {
+
+        }
+
+        function btnCancel_onclick(e) {
+
+        }
+
+        function btnRemove_onclick(e) {
+
+        }
+
+        function btnSave_onclick(e) {
+
+        }
+    </script>
+</body>
+
+</html>
