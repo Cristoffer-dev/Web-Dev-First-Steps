@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/x-icon" href="data:">
@@ -15,9 +14,9 @@
         }
     </style>
 </head>
-
 <body>
     <h1>New Task</h1>
+
     <table>
         <tr>
             <td class="right">
@@ -29,13 +28,12 @@
         </tr>
         <tr>
             <td class="right">
-                task Status:
+                Task Status:
             </td>
             <td>
                 <select id="selTaskStatus">
-                    <!-- <option value="">(Select Status)</option> -->
                     <option value="0">Pending</option>
-                    <option value="1">In Proogress</option>
+                    <option value="1">In Progress</option>
                     <option value="2">Done</option>
                 </select>
             </td>
@@ -44,23 +42,22 @@
 
     <br />
 
-    <input type="button" value="Create New task" onclick="btnCreateTask_onClick()"/>
+    <input type="button" value="Create new Task" onclick="btnCreateTask_onclick()" />
 
     <script>
-        function btnCreateTask_onClick() {
+        function btnCreateTask_onclick() {
             let task = new Object();
             task.taskName = document.getElementById("txtTaskName").value;
             task.taskStatus = document.getElementById("selTaskStatus").value;
-            
-            if (task.taskName == ""){
-                alet("Please enter the name of the task");
+
+            if (task.taskName == "") {
+                alert("Please inform the task name");
                 return;
             }
-            window.opener.receiveTaskData(task);  // Send data to parent page
-            window.close();   // Close this popup
-        }
 
+            window.opener.receiveTaskData(task);
+            window.close();
+        }
     </script>
 </body>
-
 </html>

@@ -5,21 +5,21 @@
     <meta charset="utf-8" />
     <link rel="icon" type="image/x-icon" href="data:">
     <title>Task Manager Version 2</title>
-    <link rel="stylesheet" href="/shared_assets/css/task_manager.css">
+    <link rel="stylesheet" href="/shared_assets/css/task_manager.css" />
 </head>
 
 <body>
     <h1>Task Manager Version 2</h1>
 
-    <p>Create, update, and delete tasks. This version does not save tasks</p>
+    <p>Create, update, and delete tasks. This version does not save tasks.</p>
+
     <p>
         <a href="/index.html">Home</a>
     </p>
-    <input type="button" value="Add Task" onclick="btnAdd_onClick()">
 
-    <br><br/>
+    <input type="button" value="Add Task" onclick="btnAdd_onclick()" />
 
-    <table id="tblMyTable" style="margin-top:20px; display: none;">
+    <table id="tblMyTable" style="margin-top:20px; display:none;">
         <thead>
             <tr>
                 <th>Task Number</th>
@@ -29,73 +29,200 @@
             </tr>
         </thead>
         <tbody id="tblMyTableBody">
-            <tr></tr>
-            <tr></tr>
-            <tr>
-                <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
 
         </tbody>
     </table>
 
-    <p id="pPending" class=""attention></p>
-    <p id="pInprogress"></p>
-    <p id="pCompleted"></p>
+    <p id="pPending" class="attention"></p>
+    <p id="pInProgress"></p>
+    <p id="pDone" class="success"></p>
 
     <script>
-        //support functions
+        // SUPPORT FUNCTIONS
+
         function receiveTaskData(task) {
+
             let tblMyTableBody = document.getElementById("tblMyTableBody");
-            //console.log(task)
+
             if (tblMyTableBody.children.length == 0)
                 task.taskNumber = 1;
             else
-                task.taskNumber = parseInt(tblMyTableBody.lastChild.cells[0].innerText) + 1;
+                task.taskNumber = parseInt(tblMyTableBody.lastChild.children[0].innerText) + 1;
+
             let row = document.createElement("tr");
+
             let colTaskNumber = document.createElement("td");
             colTaskNumber.innerText = task.taskNumber;
+
+            let colTaskName = document.createElement("td");
+            let txtTaskName = document.createElement("input");
+            txtTaskName.type = "text";
+            txtTaskName.className = "txtTaskName";
+            txtTaskName.value = task.taskName;
+            txtTaskName.disabled = "disabled";
+            colTaskName.appendChild(txtTaskName);
+
+            let colStatus = document.createElement("td");
+            let selStatus = document.createElement("select");
+            selStatus.appendChild(createSelectOption("Pending", 0)); // Pending = 0
+            selStatus.appendChild(createSelectOption("In Progress", 1)); // In Progress = 1
+            selStatus.appendChild(createSelectOption("Done", 2)); // Done = 2
+            selStatus.value = task.taskStatus;
+            selStatus.className = "selStatus";
+            selStatus.disabled = "disabled";
+            colStatus.appendChild(selStatus);
+
+            let colActions = document.createElement("td");
+
+            let btnEdit = document.createElement("img");
+            btnEdit.src = "/shared_assets/images/edit.png";
+            btnEdit.title = "Edit";
+            btnEdit.className = "btnEdit";
+            btnEdit.addEventListener("click", btnEdit_onclick);
+            colActions.appendChild(btnEdit);
+
+            let btnRemove = document.createElement("img");
+            btnRemove.src = "/shared_assets/images/remove.png";
+            btnRemove.title = "Remove";
+            btnRemove.className = "btnRemove";
+            btnRemove.addEventListener("click", btnRemove_onclick);
+            colActions.appendChild(btnRemove);
+
+            let btnSave = document.createElement("img");
+            btnSave.src = "/shared_assets/images/save.png";
+            btnSave.title = "Save";
+            btnSave.className = "btnSave";
+            btnSave.style.display = "none";
+            btnSave.addEventListener("click", btnSave_onclick);
+            colActions.appendChild(btnSave);
+
+            let btnCancel = document.createElement("img");
+            btnCancel.src = "/shared_assets/images/cancel.png";
+            btnCancel.title = "Cancel";
+            btnCancel.className = "btnCancel";
+            btnCancel.style.display = "none";
+            btnCancel.addEventListener("click", btnCancel_onclick);
+            colActions.appendChild(btnCancel);
+
+            row.appendChild(colTaskNumber);
+            row.appendChild(colTaskName);
+            row.appendChild(colStatus);
+            row.appendChild(colActions);
+
+            tblMyTableBody.appendChild(row);
+            document.getElementById("tblMyTable").style.display = "";
+            displayTotalTasks();
         }
 
         function createSelectOption(text, value) {
-
+            let option = document.createElement("option");
+            option.text = text;
+            option.value = value;
+            return option;
         }
 
-        function displayTotaltask() {
+        function displayTotalTasks() {
+            let totalPending = 0;
+            let totalInProgress = 0;
+            let totalDone = 0;
 
+            let allSelects = document.getElementsByClassName("selStatus");
+            for (let i = 0; i < allSelects.length; i++) {
+                if (allSelects[i].value == 0) // Pending = 0
+                    totalPending++
+                else if (allSelects[i].value == 1) // In Progress = 1
+                    totalInProgress++;
+                else
+                    totalDone++;
+            }
+
+            document.getElementById("pPending").innerText = "Pending: " + totalPending;
+            document.getElementById("pInProgress").innerText = "In Progress: " + totalInProgress;
+            document.getElementById("pDone").innerText = "Done: " + totalDone;
+
+            if (totalPending == 0 && totalInProgress == 0 && totalDone == 0)
+                document.getElementById("tblMyTable").style.display = "none";
+            else
+                document.getElementById("tblMyTable").style.display = "";
         }
 
         function closeEditRow(row, restoreOriginalValues) {
+            let txtTaskName = row.getElementsByClassName("txtTaskName")[0];
+            let selStatus = row.getElementsByClassName("selStatus")[0];
 
+            txtTaskName.disabled = "disabled";
+            selStatus.disabled = "disabled";
+
+            if (restoreOriginalValues) {
+                txtTaskName.value = txtTaskName.getAttribute("data-originalValue");
+                selStatus.value = selStatus.getAttribute("data-originalValue");
+            }
+
+            row.getElementsByClassName("btnEdit")[0].style.display = "";
+            row.getElementsByClassName("btnRemove")[0].style.display = "";
+            row.getElementsByClassName("btnSave")[0].style.display = "none";
+            row.getElementsByClassName("btnCancel")[0].style.display = "none";
         }
 
         function getTaskFromRow(row) {
-
+            let task = new Object();
+            task.taskNumber = parseInt(row.children[0].innerText);
+            task.taskName = row.getElementsByClassName("txtTaskName")[0].value;
+            task.taskStatus = row.getElementsByClassName("selStatus")[0].value;
+            return task;
         }
-
     </script>
+
     <script>
-        //Event Handler
-        function btnAdd_onClick() {
-            window.open("task_popup.html", "_blank", "left=400, width=400, height=250");
+        // EVENT HANDLERS
+
+        function btnAdd_onclick() {
+            window.open("task_popup.html", "", "left=400, top=200, width=600, height=250");
         }
 
-        function btnEdit_onClick(e) {
+        function btnEdit_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
 
+            let txtTaskName = row.getElementsByClassName("txtTaskName")[0];
+            txtTaskName.setAttribute("data-originalValue", txtTaskName.value);
+            txtTaskName.disabled = "";
+
+            let selStatus = row.getElementsByClassName("selStatus")[0];
+            selStatus.setAttribute("data-originalValue", selStatus.value);
+            selStatus.disabled = "";
+
+            row.getElementsByClassName("btnEdit")[0].style.display = "none";
+            row.getElementsByClassName("btnRemove")[0].style.display = "none";
+            row.getElementsByClassName("btnSave")[0].style.display = "";
+            row.getElementsByClassName("btnCancel")[0].style.display = "";
         }
 
         function btnCancel_onclick(e) {
-
+            let row = e.srcElement.parentElement.parentElement;
+            closeEditRow(row, true);
         }
 
         function btnRemove_onclick(e) {
+            if (!confirm("Do you really want to remove?"))
+                return;
 
+            let row = e.srcElement.parentElement.parentElement;
+            document.getElementById("tblMyTableBody").removeChild(row);
+
+            displayTotalTasks();
         }
 
         function btnSave_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
 
+            let task = getTaskFromRow(row);
+            if (task.taskName == "") {
+                alert("Please inform the task name");
+                return;
+            }
+
+            closeEditRow(row, false);
+            displayTotalTasks();
         }
     </script>
 </body>
