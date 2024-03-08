@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>Contact list </title>
+    <link rel="stylesheet" href="/shared_assets/css/contact_list.css" />
+</head>
+
+<body>
+    <h1>Contact List</h1>
+
+    <input type="button" value="Add Contact" onclick="btnAdd_onclick()" style="width: 190px;" />
+
+    <table id="tblMyTable" style="margin-top:20px; display:none;">
+        <thead>
+            <tr>
+                <th>Contact Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblMyTableBody">
+
+        </tbody>
+    </table>
+
+    <script>
+        // SUPPORT FUNCTIONS
+
+        function receiveContact(contact) {
+
+            let tblMyTableBody = document.getElementById("tblMyTableBody");
+
+            if (tblMyTableBody.children.length == 0)
+                contact.contactNumber = 1;
+            else
+                contact.contactNumber = parseInt(tblMyTableBody.lastChild.children[0].innerText) + 1;
+
+            let row = document.createElement("tr");
+
+            let colContactNumber = document.createElement("td");
+            colContactNumber.innerText = contact.contactNumber;
+
+            let colContactName = document.createElement("td");
+            let txtContactName = document.createElement("input");
+            txtContactName.type = "text";
+            txtContactName.className = "txtContactName";
+            txtContactName.value = contact.contactName;
+            txtContactName.disabled = "disabled";
+            colContactName.appendChild(txtContactName);
+
+            let colContactEmail = document.createElement("td");
+            let txtContactEmail = document.createElement("input");
+            txtContactEmail.type = "text";
+            txtContactEmail.className = "txtContactEmail";
+            txtContactEmail.value = contact.contactEmail;
+            txtContactEmail.disabled = "disabled";
+            colContactEmail.appendChild(txtContactEmail);
+
+            let colStatus = document.createElement("td");
+            let selStatus = document.createElement("select");
+            selStatus.appendChild(createSelectOption("Basic", 0)); // Basic  = 0
+            selStatus.appendChild(createSelectOption("Standard", 1)); // Standard = 1
+            selStatus.appendChild(createSelectOption("Premium", 2)); // Premium = 2
+            selStatus.value = contact.contactStatus;
+            selStatus.className = "selStatus";
+            selStatus.disabled = "disabled";
+            colStatus.appendChild(selStatus);
+
+            let colActions = document.createElement("td");
+
+            let btnEdit = document.createElement("img");
+            btnEdit.src = "/shared_assets/images/edit.png";
+            btnEdit.title = "Edit";
+            btnEdit.className = "btnEdit";
+            btnEdit.addEventListener("click", btnEdit_onclick);
+            colActions.appendChild(btnEdit);
+
+            let btnRemove = document.createElement("img");
+            btnRemove.src = "/shared_assets/images/remove.png";
+            btnRemove.title = "Remove";
+            btnRemove.className = "btnRemove";
+            btnRemove.addEventListener("click", btnRemove_onclick);
+            colActions.appendChild(btnRemove);
+
+            let btnSave = document.createElement("img");
+            btnSave.src = "/shared_assets/images/save.png";
+            btnSave.title = "Save";
+            btnSave.className = "btnSave";
+            btnSave.style.display = "none";
+            btnSave.addEventListener("click", btnSave_onclick);
+            colActions.appendChild(btnSave);
+
+            let btnCancel = document.createElement("img");
+            btnCancel.src = "/shared_assets/images/cancel.png";
+            btnCancel.title = "Cancel";
+            btnCancel.className = "btnCancel";
+            btnCancel.style.display = "none";
+            btnCancel.addEventListener("click", btnCancel_onclick);
+            colActions.appendChild(btnCancel);
+
+            row.appendChild(colContactNumber);
+            row.appendChild(colContactName);
+            row.appendChild(colContactEmail);
+            row.appendChild(colStatus);
+            row.appendChild(colActions);
+
+            tblMyTableBody.appendChild(row);
+            document.getElementById("tblMyTable").style.display = "";
+            displayTotalContacts();
+        }
+
+        function createSelectOption(text, value) {
+            let option = document.createElement("option");
+            option.text = text;
+            option.value = value;
+            return option;
+        }
+
+        function displayTotalContacts() {
+            let totalBasic = 0;
+            let totalInStandard = 0;
+            let totalPremium = 0;
+        
+            let allSelects = document.getElementsByClassName("selStatus");
+            for (let i = 0; i < allSelects.length; i++) {
+                if (allSelects[i].value === "0") // Basic = "0"
+                    totalBasic++
+                else if (allSelects[i].value === "1") // Standard = "1"
+                    totalInStandard++;
+                else
+                    totalPremium++;
+            }
+        
+            let pBasic = document.getElementById("pBasic");
+            let pStandard = document.getElementById("pStandard");
+            let pPremium = document.getElementById("pPremium");
+            let tblMyTable = document.getElementById("tblMyTable");
+        
+            if (pBasic && pStandard && pPremium && tblMyTable) {
+                pBasic.innerText = "Basic: " + totalBasic;
+                pStandard.innerText = "Standard: " + totalInStandard;
+                pPremium.innerText = "Premium: " + totalPremium;
+        
+                tblMyTable.style.display = (totalBasic == 0 && totalInStandard == 0 && totalPremium == 0) ? "none" : "";
+            } else {
+                console.error("One or more elements not found in displayTotalContacts()");
+            }
+        }
+
+        function closeEditRow(row, restoreOriginalValues) {
+            let txtContactName = row.getElementsByClassName("txtContactName")[0];
+            let txtContactEmail = row.getElementsByClassName("txtContactEmail")[0];
+            let selStatus = row.getElementsByClassName("selStatus")[0];
+
+            txtContactName.disabled = "disabled";
+            txtContactEmail.disabled = "disabled";
+            selStatus.disabled = "disabled";
+
+            if (restoreOriginalValues) {
+                txtContactName.value = txtContactName.getAttribute("data-originalValue");
+                txtContactEmail.value = txtContactEmail.getAttribute("data-originalValue");
+                selStatus.value = selStatus.getAttribute("data-originalValue");
+            }
+
+            row.getElementsByClassName("btnEdit")[0].style.display = "";
+            row.getElementsByClassName("btnRemove")[0].style.display = "";
+            row.getElementsByClassName("btnSave")[0].style.display = "none";
+            row.getElementsByClassName("btnCancel")[0].style.display = "none";
+        }
+
+        function getContactFromRow(row) {
+            let contact = new Object();
+            contact.contactNumber = parseInt(row.children[0].innerText);
+            contact.contactName = row.getElementsByClassName("txtContactName")[0].value;
+            contact.contactEmail = row.getElementsByClassName("txtContactEmail")[0].value;
+            contact.contactStatus = row.getElementsByClassName("selStatus")[0].value;
+            return contact;
+        }
+
+        // EVENT HANDLERS
+
+        function btnAdd_onclick() {
+            window.open("contact_popup.html", "", "left=400, top=200, width=600, height=250");
+        }
+
+        function btnEdit_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
+
+            let txtContactName = row.getElementsByClassName("txtContactName")[0];
+            txtContactName.setAttribute("data-originalValue", txtContactName.value);
+            txtContactName.disabled = "";
+
+            let txtContactEmail = row.getElementsByClassName("txtContactEmail")[0];
+            txtContactEmail.setAttribute("data-originalValue", txtContactEmail.value);
+            txtContactEmail.disabled = "";
+
+            let selStatus = row.getElementsByClassName("selStatus")[0];
+            selStatus.setAttribute("data-originalValue", selStatus.value);
+            selStatus.disabled = "";
+
+            row.getElementsByClassName("btnEdit")[0].style.display = "none";
+            row.getElementsByClassName("btnRemove")[0].style.display = "none";
+            row.getElementsByClassName("btnSave")[0].style.display = "";
+            row.getElementsByClassName("btnCancel")[0].style.display = "";
+        }
+
+        function btnCancel_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
+            closeEditRow(row, true);
+        }
+
+        function btnRemove_onclick(e) {
+            if (!confirm("Do you really want to remove?"))
+                return;
+
+            let row = e.srcElement.parentElement.parentElement;
+            document.getElementById("tblMyTableBody").removeChild(row);
+
+            let allRows = document.getElementById("tblMyTableBody").getElementsByTagName("tr");
+            for (let i = 0; i < allRows.length; i++) {
+                allRows[i].children[0].innerText = i + 1;
+            }
+
+            displayTotalContacts();
+        }
+
+        function btnSave_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
+
+            let contact = getContactFromRow(row);
+            if (contact.contactName == "" || contact.contactEmail == "") {
+                alert("Please inform the contact name and email");
+                return;
+            }
+
+            closeEditRow(row, false);
+            displayTotalContacts();
+        }
+    </script>
+</body>
+
+</html>

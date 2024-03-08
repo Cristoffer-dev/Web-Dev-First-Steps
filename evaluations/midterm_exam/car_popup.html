@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>New Car</title>
+    <style>
+        body {
+            font-family: Tahoma;
+        }
+        
+        h1 {
+            background-color: gray;
+            border: 3px solid gray;
+            color: white;
+            font-size: 25pt;
+            font-style: italic;
+            padding: 20px; 
+            text-align: center; 
+            width: 100%; 
+            margin: 0 auto; 
+        }
+        .right-align {
+            text-align: right; 
+        }
+        .btnColor {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>New Car</h1>
+
+    <table>
+        <tr>
+            <td class="right-align">Model Name:</td>
+            <td>
+                <input type="text" id="txtModelName" placeholder="Model Name" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right-align">Number of Seats:</td>
+            <td>
+                <input type="number" id="txtNumSeats" placeholder="Number of Seats"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="right-align">Engine Type:</td>
+            <td>
+                <select id="selEngineType">
+                    <option value="Electric">Electric</option>
+                    <option value="Gas">Gas</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Operating System:</td>
+            <td>
+                <select id="selOS">
+                    <option value="Linux">Linux</option>
+                    <option value="Windows">Windows</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <input class="btnColor" type="button" value="Create Car" style="width:200px; height:70px" onclick="btnCreateCar_onclick()" />
+    <input type="button" value="Cancel" style="width:200px; height:70px"  onclick="btnCancel_onclick()" />
+
+    <script>
+        function btnCreateCar_onclick() {
+            let car = new Object();
+            car.modelName = document.getElementById("txtModelName").value;
+            car.numSeats = document.getElementById("txtNumSeats").value;
+            car.engineType = document.getElementById("selEngineType").value;
+            car.operatingSystem = document.getElementById("selOS").value;
+
+            if (car.modelName == "") {
+                alert("Please inform the model name");
+                return;
+            }
+            else if (car.numSeats <= 0) {
+                alert("Please inform the number of seats");
+                return;
+            }
+                
+            window.opener.receiveCarData(car);
+            window.close();
+        }
+        function btnCancel_onclick() {
+            window.close(); 
+        }
+    </script>
+</body>
+</html>

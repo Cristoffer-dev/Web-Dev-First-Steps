@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>New Contact</title>
+    <style>
+        body {
+            font-family: Tahoma;
+        }
+
+        .right {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Contact</h1>
+
+    <table>
+        <tr>
+            <td class="right">
+                Name:
+            </td>
+            <td>
+                <input type="text" id="txtContactName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                Email:
+            </td>
+            <td>
+                <input type="text" id="txtContactEmail" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                Category:
+            </td>
+            <td>
+                <select id="selContactStatus">
+                    <option value="0">Basic</option>
+                    <option value="1">Standard</option>
+                    <option value="2">Premium</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <input type="button" value="Create Contact" onclick="btnCreateContact_onclick()" />
+
+    <script>
+        function btnCreateContact_onclick() {
+            let contact = new Object();
+            contact.contactName = document.getElementById("txtContactName").value;
+            contact.contactEmail = document.getElementById("txtContactEmail").value;
+            contact.contactStatus = document.getElementById("selContactStatus").value;
+
+            if (contact.contactName == "" || contact.contactEmail == "") {
+                alert("Please Complete all Contact Fields");
+                return;
+            }
+
+            window.opener.receiveContact(contact);
+            window.close();
+        }
+    </script>
+</body>
+
+</html>

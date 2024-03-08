@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="data:">
+    <title>Contact List</title>
+    <style>
+        body {
+            font-family: Tahoma;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid silver;
+            text-align: center;
+            padding: 10px;
+        }
+
+        img {
+            cursor: pointer;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact List</h1>
+
+    <input type="button" value="Add Contact" style="width:200px;" onclick="btnAdd_onclick()" />
+
+    <table id="tblMyTable" style="margin-top:20px; display:none;">
+        <thead>
+            <tr>
+                <th>Contact Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tblMyTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        // SUPPORT FUNCTIONS
+
+        function receiveContactData(contact) {
+            let tblMyTableBody = document.getElementById("tblMyTableBody");
+
+            if (tblMyTableBody.children.length == 0)
+                contact.contactNumber = 1;
+            else
+                contact.contactNumber = parseInt(tblMyTableBody.lastChild.children[0].innerText) + 1;
+
+            let row = document.createElement("tr");
+
+            let colContactNumber = document.createElement("td");
+            colContactNumber.innerText = contact.contactNumber;
+
+            let colName = document.createElement("td");
+            let txtName = document.createElement("input");
+            txtName.type = "text";
+            txtName.className = "txtName";
+            txtName.value = contact.name;
+            txtName.disabled = "disabled";
+            colName.appendChild(txtName);
+
+            let colEmail = document.createElement("td");
+            let txtEmail = document.createElement("input");
+            txtEmail.type = "text";
+            txtEmail.className = "txtEmail";
+            txtEmail.value = contact.email;
+            txtEmail.disabled = "disabled";
+            colEmail.appendChild(txtEmail);
+
+            let colCategory = document.createElement("td");
+            let selCategory = document.createElement("select");
+            selCategory.appendChild(createSelectOption("Basic", 0));
+            selCategory.appendChild(createSelectOption("Standard", 1));
+            selCategory.appendChild(createSelectOption("Premium", 2));
+            selCategory.value = contact.category;
+            selCategory.className = "selCategory";
+            selCategory.disabled = "disabled";
+            colCategory.appendChild(selCategory);
+
+            let colActions = document.createElement("td");
+
+            let btnEdit = document.createElement("img");
+            btnEdit.src = "/shared_assets/images/edit.png";
+            btnEdit.title = "Edit";
+            btnEdit.className = "btnEdit";
+            btnEdit.addEventListener("click", btnEdit_onclick);
+            colActions.appendChild(btnEdit);
+
+            let btnRemove = document.createElement("img");
+            btnRemove.src = "/shared_assets/images/remove.png";
+            btnRemove.title = "Remove";
+            btnRemove.className = "btnRemove";
+            btnRemove.addEventListener("click", btnRemove_onclick);
+            colActions.appendChild(btnRemove);
+
+            let btnSave = document.createElement("img");
+            btnSave.src = "/shared_assets/images/save.png";
+            btnSave.title = "Save";
+            btnSave.className = "btnSave";
+            btnSave.style.display = "none";
+            btnSave.addEventListener("click", btnSave_onclick);
+            colActions.appendChild(btnSave);
+
+            let btnCancel = document.createElement("img");
+            btnCancel.src = "/shared_assets/images/cancel.png";
+            btnCancel.title = "Cancel";
+            btnCancel.className = "btnCancel";
+            btnCancel.style.display = "none";
+            btnCancel.addEventListener("click", btnCancel_onclick);
+            colActions.appendChild(btnCancel);
+
+            row.appendChild(colContactNumber);
+            row.appendChild(colName);
+            row.appendChild(colEmail);
+            row.appendChild(colCategory);
+            row.appendChild(colActions);
+
+            tblMyTableBody.appendChild(row);
+
+            document.getElementById("tblMyTable").style.display = "";
+        }
+
+        function createSelectOption(text, value) {
+            let option = document.createElement("option");
+            option.text = text;
+            option.value = value;
+            return option;
+        }
+
+        function closeEditRow(row, restoreOriginalValues) {
+            let txtName = row.getElementsByClassName("txtName")[0];
+            let txtEmail = row.getElementsByClassName("txtEmail")[0];
+            let selCategory = row.getElementsByClassName("selCategory")[0];
+
+            txtName.disabled = "disabled";
+            txtEmail.disabled = "disabled";
+            selCategory.disabled = "disabled";
+
+            if (restoreOriginalValues) {
+                txtName.value = txtName.getAttribute("data-originalValue");
+                txtEmail.value = txtEmail.getAttribute("data-originalValue");
+                selCategory.value = selCategory.getAttribute("data-originalValue");
+            }
+
+            row.getElementsByClassName("btnEdit")[0].style.display = "";
+            row.getElementsByClassName("btnRemove")[0].style.display = "";
+            row.getElementsByClassName("btnSave")[0].style.display = "none";
+            row.getElementsByClassName("btnCancel")[0].style.display = "none";
+        }
+    </script>
+
+    <script>
+        // EVENT HANDLERS
+
+        function btnAdd_onclick() {
+            window.open("contact_popup.html", "", "left=400, top=200, width=600, height=250");
+        }
+
+        function btnEdit_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
+
+            let txtName = row.getElementsByClassName("txtName")[0];
+            txtName.setAttribute("data-originalValue", txtName.value);
+            txtName.disabled = "";
+
+            let txtEmail = row.getElementsByClassName("txtEmail")[0];
+            txtEmail.setAttribute("data-originalValue", txtEmail.value);
+            txtEmail.disabled = "";
+
+            let selCategory = row.getElementsByClassName("selCategory")[0];
+            selCategory.setAttribute("data-originalValue", selCategory.value);
+            selCategory.disabled = "";
+
+            row.getElementsByClassName("btnEdit")[0].style.display = "none";
+            row.getElementsByClassName("btnRemove")[0].style.display = "none";
+            row.getElementsByClassName("btnSave")[0].style.display = "";
+            row.getElementsByClassName("btnCancel")[0].style.display = "";
+        }
+
+        function btnRemove_onclick(e) {
+            if (!confirm("Do you really want to remove?"))
+                return;
+
+            let row = e.srcElement.parentElement.parentElement;
+            document.getElementById("tblMyTableBody").removeChild(row);
+        }
+
+        function btnSave_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
+
+            if (row.getElementsByClassName("txtName")[0].value == "") {
+                alert("Please, inform the name");
+                return;
+            }
+            else if (row.getElementsByClassName("txtEmail")[0].value == "") {
+                alert("Please, inform the email");
+                return;
+            }
+
+            closeEditRow(row, false);
+        }
+
+        function btnCancel_onclick(e) {
+            let row = e.srcElement.parentElement.parentElement;
+            closeEditRow(row, true);
+        }
+    </script>
+</body>
+</html>
